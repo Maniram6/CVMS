@@ -45,7 +45,7 @@ export const sendVisitMail = async (req: Request, res: Response) => {
     }
 
     // Gather recipients
-    const recipients = "maniram.madu@gmail.com";
+    const recipients = ["maniram.madu@gmail.com"];
 
     const subject = `Client Visit - ${visit.project} Project`;
     const html = `

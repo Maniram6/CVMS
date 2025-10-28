@@ -1,6 +1,9 @@
 import express from "express";
-import { getVisits, createVisit } from "../controllers/visits.controller";
+import {
+  getAllResources,
+  createResource,
+} from "../controllers/resources.controller";
 export const resourcesRouter = express.Router();
 
-resourcesRouter.get("/", getVisits);
-resourcesRouter.post("/", createVisit);
+resourcesRouter.get("/", getAllResources);
+resourcesRouter.post("/", createResource);

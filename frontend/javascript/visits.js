@@ -2,8 +2,8 @@ const API_BASE = "http://localhost:4000/api"; // Your backend base URL
 
 // DOM elements
 const visitForm = document.getElementById("visitForm");
-const clientsContainer = document.getElementById("clientsContainer");
-const resourcesContainer = document.getElementById("resourcesContainer");
+// const clientsContainer = document.getElementById("clientsContainer");
+// const resourcesContainer = document.getElementById("resourcesContainer");
 const visitsList = document.getElementById("visitsList");
 
 const branchOptions = {
@@ -37,30 +37,30 @@ const branchOptions = {
     }
   });
 
-// Add dynamic input fields
-document.getElementById("addClientBtn").addEventListener("click", () => {
-  const div = document.createElement("div");
-  div.classList.add("client-entry");
-  div.innerHTML = `
-    <input placeholder="Client Name" required />
-    <input placeholder="Email" type="email" required />
-    <input placeholder="Contact No" />
-    <input placeholder="Designation" />
-  `;
-  clientsContainer.appendChild(div);
-});
+// // Add dynamic input fields
+// document.getElementById("addClientBtn").addEventListener("click", () => {
+//   const div = document.createElement("div");
+//   div.classList.add("client-entry");
+//   div.innerHTML = `
+//     <input placeholder="Client Name" required />
+//     <input placeholder="Email" type="email" required />
+//     <input placeholder="Contact No" />
+//     <input placeholder="Designation" />
+//   `;
+//   clientsContainer.appendChild(div);
+// });
 
-document.getElementById("addResourceBtn").addEventListener("click", () => {
-  const div = document.createElement("div");
-  div.classList.add("resource-entry");
-  div.innerHTML = `
-    <input placeholder="Resource Name" required />
-    <input placeholder="Email" type="email" required />
-    <input placeholder="Contact No" />
-    <input placeholder="Role" />
-  `;
-  resourcesContainer.appendChild(div);
-});
+// document.getElementById("addResourceBtn").addEventListener("click", () => {
+//   const div = document.createElement("div");
+//   div.classList.add("resource-entry");
+//   div.innerHTML = `
+//     <input placeholder="Resource Name" required />
+//     <input placeholder="Email" type="email" required />
+//     <input placeholder="Contact No" />
+//     <input placeholder="Role" />
+//   `;
+//   resourcesContainer.appendChild(div);
+// });
 
 // Submit form to backend
 visitForm.addEventListener("submit", async (e) => {

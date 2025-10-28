@@ -3,11 +3,15 @@ const API_BASE = "http://localhost:4000/api"; // adjust as needed
 // Get visit ID from URL query
 const params = new URLSearchParams(window.location.search);
 const visitId = params.get("id");
+const clientsContainer = document.getElementById("clientsContainer");
+const resourcesContainer = document.getElementById("resourcesContainer");
+const addClientBtn = document.getElementById("addClientBtn");
+const addResourceBtn = document.getElementById("addResourceBtn")
 
 async function fetchVisitDetails() {
   const visitInfo = document.getElementById("visitInfo");
-  const clientsDiv = document.getElementById("clients");
-  const onsitesDiv = document.getElementById("onsites");
+  const clientsDiv = document.getElementById("clientsContainer");
+  const onsitesDiv = document.getElementById("resourcesContainer");
 
   visitInfo.innerHTML = "<p>Loading...</p>";
 
@@ -66,3 +70,147 @@ async function fetchVisitDetails() {
 }
 
 fetchVisitDetails();
+
+
+// Add dynamic input fields
+addClientBtn.addEventListener("click", () => {
+  const div = document.createElement("div");
+  div.classList.add("client-entry");
+  div.innerHTML = `
+    <input class="client-name" placeholder="Client Name" required />
+    <input class="client-email" placeholder="Email" type="email" required />
+    <input class="client-contact" placeholder="Contact No" />
+    <input class="client-designation" placeholder="Designation" />
+    <button type="button" class="saveClientBtn">Save</button>
+  `;
+
+  // Add the new entry to container
+  clientsContainer.appendChild(div);
+
+  // Add event listener for the save button in this entry
+  const saveBtn = div.querySelector(".saveClientBtn");
+  
+  saveBtn.addEventListener("click", async () => {
+    const clientName = div.querySelector(".client-name").value.trim();
+    const email = div.querySelector(".client-email").value.trim();
+    const contactNo = div.querySelector(".client-contact").value.trim();
+    const designation = div.querySelector(".client-designation").value.trim();
+
+    if (!clientName || !email) {
+      alert("Please fill in required fields (Client Name and Email).");
+      return;
+    }
+
+    // Replace this with your current visitId (get from URL or page data)
+    const visitId = new URLSearchParams(window.location.search).get("id");
+
+    const body = {
+      client_visit_id: visitId,
+      client_name: clientName,
+      email,
+      contact_no: contactNo,
+      designation,
+      created_by: "admin",
+    };
+
+    try {
+      const res = await fetch(`${API_BASE}/clients`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      if (res.ok) {
+        alert("✅ Client saved successfully!");
+
+      div.innerHTML = `
+        <p><strong>${body.client_name}</strong> (${body.email})</p>
+          <p>Phone: ${body.contact_no}</p>
+          <p>Designation: ${body.designation}</p>
+      `;
+      div.classList.add("client-card");
+
+      div.scrollIntoView({ behavior: "smooth" });
+        // div.querySelectorAll("input").forEach((i) => (i.disabled = true));
+        // saveBtn.remove(); // Remove save button after success
+      } else {
+        alert("❌ Failed to save client");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("⚠️ Error while saving client");
+    }
+  });
+});
+
+addResourceBtn.addEventListener("click", () => {
+const div = document.createElement("div");
+div.classList.add("resource-entry");
+div.innerHTML = `
+  <input class="resource-name" placeholder="Resource Name" required />
+  <input class="resource-email" placeholder="Email" type="email" required />
+  <input class="resource-contact" placeholder="Contact No" />
+  <input class="resource-role" placeholder="Role" />
+  <button type="button" class="saveResourceBtn">Save</button>
+`;
+
+
+// Add the new entry to container
+resourcesContainer.appendChild(div);
+
+
+  // Add event listener for the save button in this entry
+  const saveBtn = div.querySelector(".saveResourceBtn");
+  
+  saveBtn.addEventListener("click", async () => {
+    const resourceName = div.querySelector(".resource-name").value.trim();
+    const email = div.querySelector(".resource-email").value.trim();
+    const contactNo = div.querySelector(".resource-contact").value.trim();
+    const role = div.querySelector(".resource-role").value.trim();
+
+    if (!resourceName || !email) {
+      alert("Please fill in required fields (resource Name and Email).");
+      return;
+    }
+
+    // Replace this with your current visitId (get from URL or page data)
+    const visitId = new URLSearchParams(window.location.search).get("id");
+
+    const body = {
+      client_visit_id: visitId,
+      resource_name: resourceName,
+      resource_mail: email,
+      resource_contact: contactNo,
+      resource_role: role,
+      created_by: "admin",
+    };
+
+    try {
+      const res = await fetch(`${API_BASE}/resources`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      if (res.ok) {
+        alert("✅ Onsite Resource saved successfully!");
+
+      div.innerHTML = `
+        <p><strong>${body.client_name}</strong> (${body.email})</p>
+          <p>Phone: ${body.contact_no}</p>
+          <p>Designation: ${body.designation}</p>
+      `;
+      div.classList.add("client-card");
+
+      div.scrollIntoView({ behavior: "smooth" });
+        // div.querySelectorAll("input").forEach((i) => (i.disabled = true));
+        // saveBtn.remove(); // Remove save button after success
+      } else {
+        alert("❌ Failed to save client");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("⚠️ Error while saving client");
+    }
+  });
+});

@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  # Main PostgreSQL database for your application data
+  main-db:
+    image: postgres:15
+    container_name: cvms_main_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: cvms_main_db
+      POSTGRES_USER: cvmsadmin
+      POSTGRES_PASSWORD: cvmsadmpass
+    volumes:
+      - cvms_main_db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  cvms_main_db:

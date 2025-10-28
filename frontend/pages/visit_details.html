@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visit Details</title>
+    <link rel="stylesheet" href="../styles/visit_details.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Visit Details</h1>
+      <button onclick="window.location.href='visits.html'">
+        ← Back to Visits
+      </button>
+    </header>
+
+    <main class="main-content">
+      <section id="visitInfo" class="card">
+        <h2>Loading visit info...</h2>
+      </section>
+
+      <section id="clientList" class="card">
+        <h3>Clients</h3>
+        <div id="clients"></div>
+      </section>
+
+      <section id="onsiteList" class="card">
+        <h3>Onsite Resources</h3>
+        <div id="onsites"></div>
+      </section>
+    </main>
+
+    <script src="../javascript/visit_details.js"></script>
+  </body>
+</html>

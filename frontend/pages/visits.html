@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Client Visit Management</title>
+    <link rel="stylesheet" href="../styles/visits.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Client Visit Management System</h1>
+    </header>
+
+    <main class="main-content">
+      <section class="form-section">
+        <h2>Create Client Visit</h2>
+        <form id="visitForm">
+          <label>Project:</label>
+          <input type="text" id="project" required />
+
+          <label>Team:</label>
+          <input type="text" id="team" required />
+
+          <label>From Date:</label>
+          <input type="date" id="fromDate" required />
+
+          <label>To Date:</label>
+          <input type="date" id="toDate" required />
+
+          <!-- Location Dropdown -->
+          <label for="location">Location:</label>
+          <select id="location" required>
+            <option value="">-- Select Location --</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Bangalore">Bangalore</option>
+          </select>
+
+          <!-- Branch Dropdown -->
+          <label for="branch">Branch:</label>
+          <select id="branch" required>
+            <option value="">-- Select Branch --</option>
+          </select>
+
+          <h3>Clients</h3>
+          <div id="clientsContainer"></div>
+          <button type="button" id="addClientBtn">+ Add Client</button>
+
+          <h3>Onsite Resources</h3>
+          <div id="resourcesContainer"></div>
+          <button type="button" id="addResourceBtn">+ Add Resource</button>
+
+          <button type="submit">Save Visit</button>
+        </form>
+      </section>
+
+      <section class="list-section">
+        <h2>Existing Visits</h2>
+        <button id="fetchVisitsBtn">Refresh List</button>
+        <div id="visitsList"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2025 Client Visit Management</p>
+    </footer>
+
+    <script src="../javascript/visits.js"></script>
+  </body>
+</html>

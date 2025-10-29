@@ -73,24 +73,24 @@ visitForm.addEventListener("submit", async (e) => {
     visit_to_date: document.getElementById("toDate").value,
     location: document.getElementById("location").value,
     branch: document.getElementById("branch").value,
-    clients: Array.from(clientsContainer.children).map(div => {
-      const [name, email, contact, designation] = div.querySelectorAll("input");
-      return {
-        client_name: name.value,
-        email: email.value,
-        contact_no: contact.value,
-        designation: designation.value
-      };
-    }),
-    onsite_resources: Array.from(resourcesContainer.children).map(div => {
-      const [name, email, contact, role] = div.querySelectorAll("input");
-      return {
-        resource_name: name.value,
-        resource_mail: email.value,
-        resource_contact: contact.value,
-        resource_role: role.value
-      };
-    })
+    // clients: Array.from(clientsContainer.children).map(div => {
+    //   const [name, email, contact, designation] = div.querySelectorAll("input");
+    //   return {
+    //     client_name: name.value,
+    //     email: email.value,
+    //     contact_no: contact.value,
+    //     designation: designation.value
+    //   };
+    // }),
+    // onsite_resources: Array.from(resourcesContainer.children).map(div => {
+    //   const [name, email, contact, role] = div.querySelectorAll("input");
+    //   return {
+    //     resource_name: name.value,
+    //     resource_mail: email.value,
+    //     resource_contact: contact.value,
+    //     resource_role: role.value
+    //   };
+    // })
   };
 
   try {

@@ -44,20 +44,20 @@ CREATE TABLE client_visits (
 -- =============================================
 --  CLIENTS TABLE
 -- =============================================
+
 CREATE TABLE clients (
     client_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    client_visit_id UUID NOT NULL REFERENCES client_visits(client_visit_id) ON DELETE CASCADE,
-    
-    client_name        VARCHAR(100) NOT NULL,
-    email              VARCHAR(150) NOT NULL,
-    contact_no         VARCHAR(20),
-    designation        VARCHAR(100),
 
-    created_by         VARCHAR(100),
-    updated_by         VARCHAR(100),
-    created_at         TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at         TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    deleted_at         TIMESTAMP WITH TIME ZONE
+    client_name      VARCHAR(100) NOT NULL,
+    email            VARCHAR(150) NOT NULL UNIQUE,
+    contact_no       VARCHAR(20),
+    designation      VARCHAR(100),
+
+    created_by       VARCHAR(100),
+    updated_by       VARCHAR(100),
+    created_at       TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at       TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    deleted_at       TIMESTAMP WITH TIME ZONE
 );
 
 -- =============================================
@@ -65,7 +65,6 @@ CREATE TABLE clients (
 -- =============================================
 CREATE TABLE onsite_resources (
     onsite_resource_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    client_visit_id UUID NOT NULL REFERENCES client_visits(client_visit_id) ON DELETE CASCADE,
 
     resource_name     VARCHAR(100) NOT NULL,
     resource_mail     VARCHAR(150) NOT NULL,
@@ -78,6 +77,25 @@ CREATE TABLE onsite_resources (
     updated_at        TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     deleted_at        TIMESTAMP WITH TIME ZONE
 );
+
+
+-- Mapping tables
+
+CREATE TABLE client_visit_clients_map (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    client_id UUID NOT NULL REFERENCES clients(client_id) ON DELETE CASCADE,
+    client_visit_id UUID NOT NULL REFERENCES client_visits(client_visit_id) ON DELETE CASCADE,
+    UNIQUE (client_id, client_visit_id)
+);
+
+CREATE TABLE client_visit_onsite_resources_map (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    client_visit_id UUID NOT NULL REFERENCES client_visits(client_visit_id) ON DELETE CASCADE,
+    onsite_resource_id UUID NOT NULL REFERENCES onsite_resources(onsite_resource_id) ON DELETE CASCADE,
+    UNIQUE (client_visit_id, onsite_resource_id)
+);
+
+
 
 
 

@@ -6,6 +6,8 @@ export async function sendMail(
   to: string[],
   subject: string,
   html: string,
+  attachmentBuffer?: Buffer,
+  attachmentName?: string,
   cc?: string[]
 ) {
   // Create a mail transporter (using your SMTP config)
@@ -17,13 +19,35 @@ export async function sendMail(
     },
   });
 
-  await transporter.sendMail({
+  // await transporter.sendMail({
+  //   from: process.env.EMAIL_USER,
+  //   // to: Array.isArray(to) ? to.join(", ") : to, // join multiple recipients with commas
+  //   // cc: cc ? (Array.isArray(cc) ? cc.join(", ") : cc) : undefined,
+  //   to: to.join(", "),
+  //   cc: cc ? cc.join(", ") : undefined,
+  //   subject,
+  //   html,
+  // });
+
+  const mailOptions: any = {
     from: process.env.EMAIL_USER,
-    // to: Array.isArray(to) ? to.join(", ") : to, // join multiple recipients with commas
-    // cc: cc ? (Array.isArray(cc) ? cc.join(", ") : cc) : undefined,
     to: to.join(", "),
     cc: cc ? cc.join(", ") : undefined,
     subject,
     html,
-  });
+  };
+
+  // Add Excel file attachment if provided
+  if (attachmentBuffer && attachmentName) {
+    mailOptions.attachments = [
+      {
+        filename: attachmentName,
+        content: attachmentBuffer,
+        contentType:
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      },
+    ];
+  }
+
+  await transporter.sendMail(mailOptions);
 }

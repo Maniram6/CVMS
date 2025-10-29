@@ -34,8 +34,9 @@ export const sendVisitMail = async (req: Request, res: Response) => {
   try {
     const { visitId } = req.params;
 
-    const repo = AppDataSource.getRepository(ClientVisit);
-    const visit = await repo.findOne({
+    // 1️⃣ Fetch visit details
+    const visitRepo = AppDataSource.getRepository(ClientVisit);
+    const visit = await visitRepo.findOne({
       where: { client_visit_id: visitId },
       relations: ["clients", "onsiteResources", "branch", "location"],
     });
@@ -44,28 +45,52 @@ export const sendVisitMail = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Visit not found" });
     }
 
-    // Gather recipients
-    const recipients = ["maniram.madu@gmail.com", "anureddy95.polu@gmail.com"];
+    // 2️⃣ Fetch client list for this visit
+    const clients = await AppDataSource.getRepository(Client).find({
+      where: { visit: { client_visit_id: visitId } },
+      relations: ["visit"],
+    });
+
+    if (!clients || clients.length === 0) {
+      console.warn(`⚠️ No clients found for visit: ${visitId}`);
+    }
+
+    // 3️⃣ Generate Excel buffer for clients
+    // Convert ArrayBuffer → Node Buffer
+    const excelBuffer = await generateClientExcel(clients);
+    const buffer = Buffer.from(excelBuffer); //
+
+    // 4️⃣ Prepare mail data
+    const recipients = ["anureddy95.polu@gmail.com"];
+    const ccList = ["maniram.madu@gmail.com"];
 
     const subject = `Client Visit - ${visit.project} Project`;
     const html = `
-        <h3>Visit Details</h3>
-        <p><strong>Project:</strong> ${visit.project}</p>
-        <p><strong>Team:</strong> ${visit.team}</p>
-        <p><strong>Dates:</strong> ${visit.visit_from_date} → ${
+      <h3>Visit Details</h3>
+      <p><strong>Project:</strong> ${visit.project}</p>
+      <p><strong>Team:</strong> ${visit.team || "N/A"}</p>
+      <p><strong>Dates:</strong> ${visit.visit_from_date} → ${
       visit.visit_to_date
     }</p>
-        <p><strong>Branch:</strong> ${visit.branch?.branch_name || "N/A"}</p>
-        <p><strong>Location:</strong> ${visit.location?.city_name || "N/A"}</p>
-        <hr/>
-        <p>This mail was sent automatically from the CVMS system.</p>
-      `;
+      <p><strong>Branch:</strong> ${visit.branch?.branch_name || "N/A"}</p>
+      <p><strong>Location:</strong> ${visit.location?.city_name || "N/A"}</p>
+      <hr/>
+      <p>Attached is the list of clients for this visit.</p>
+      <p>This mail was sent automatically from the CVMS system.</p>
+    `;
 
-    // Send mail
-    await sendMail(recipients, subject, html);
-    console.log(`📧 Mail sent for visit: ${visitId}`);
+    // 5️⃣ Send mail with Excel attachment
+    await sendMail(
+      recipients,
+      subject,
+      html,
+      buffer,
+      `Client_Visit_${visit.project}.xlsx`,
+      ccList
+    );
 
-    res.json({ message: "Mail sent successfully" });
+    console.log(`📧 Mail (with Excel) sent for visit: ${visitId}`);
+    res.json({ message: "Mail sent successfully with attachment" });
   } catch (error) {
     console.error("Mail send error:", error);
     res.status(500).json({ message: "Mail send failed", error });

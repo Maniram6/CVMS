@@ -13,13 +13,13 @@
 
     <main class="main-content">
       <section class="form-section">
-        <h2>Create Client Visit</h2>
+        <h2>Register Client Visit</h2>
         <form id="visitForm">
           <label>Project:</label>
           <input type="text" id="project" required />
 
-          <label>Team:</label>
-          <input type="text" id="team" required />
+          <!-- <label>Team:</label>
+          <input type="text" id="team" required /> -->
 
           <label>From Date:</label>
           <input type="date" id="fromDate" required />
@@ -57,6 +57,7 @@
       <section class="list-section">
         <h2>Existing Visits</h2>
         <button id="fetchVisitsBtn">Refresh List</button>
+        <button id="searchButton">Search</button>
         <div id="visitsList"></div>
       </section>
     </main>

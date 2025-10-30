@@ -68,7 +68,7 @@ visitForm.addEventListener("submit", async (e) => {
 
   const visitData = {
     project: document.getElementById("project").value,
-    team: document.getElementById("team").value,
+    // team: document.getElementById("team").value,
     visit_from_date: document.getElementById("fromDate").value,
     visit_to_date: document.getElementById("toDate").value,
     location: document.getElementById("location").value,
@@ -125,9 +125,11 @@ async function fetchVisits() {
       <h3>${visit.project} (${visit.team} - ${visit.location.city_name})</h3>
       <p>${visit.visit_from_date} → ${visit.visit_to_date}</p>
       <button onclick="viewDetails('${visit.client_visit_id}')">View Details</button>
-      <button onclick="sendMail('${visit.client_visit_id}')">Send Mail</button>
-      <button onclick="downloadExcel('${visit.client_visit_id}')">Download Excel</button>
+     
     `;
+    // Below two lines belong to above
+    //  <button onclick="sendMail('${visit.client_visit_id}')">Send Mail</button>
+    //   <button onclick="downloadExcel('${visit.client_visit_id}')">Download Excel</button>
     visitsList.appendChild(div);
   });
 }

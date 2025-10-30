@@ -214,3 +214,65 @@ resourcesContainer.appendChild(div);
     }
   });
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+        // Edit icons functionality
+        const editIcons = document.querySelectorAll(".edit-icon");
+        editIcons.forEach((icon) => {
+          icon.addEventListener("click", function () {
+            const sectionTitle =
+              this.parentElement.querySelector("h2, h3").textContent;
+            alert(`Edit ${sectionTitle} functionality would open here`);
+          });
+        });
+
+        // Add/Edit Client button
+        const addEditClientBtn = document.querySelector(".action-button");
+        addEditClientBtn.addEventListener("click", function () {
+          alert("Add/Edit Client functionality would open here");
+        });
+
+        // Excel buttons
+        const generateExcelBtn = document.querySelector(".btn-primary");
+        const downloadExcelBtn = document.querySelector(
+          ".btn-secondary:nth-of-type(2)"
+        );
+
+        generateExcelBtn.addEventListener("click", function () {
+          alert("Generating Excel file...");
+        });
+
+        downloadExcelBtn.addEventListener("click", function () {
+          alert("Downloading Excel file...");
+        });
+
+        // Send Mail button
+        const sendMailBtn = document.querySelector(
+          ".btn-secondary:last-of-type"
+        );
+        sendMailBtn.addEventListener("click", function () {
+          const checkboxes = document.querySelectorAll(
+            '.checkbox-group input[type="checkbox"]:checked'
+          );
+          if (checkboxes.length === 0) {
+            alert("Please select at least one recipient");
+            return;
+          }
+
+          const recipients = Array.from(checkboxes).map((cb) => {
+            return cb.nextElementSibling.textContent;
+          });
+
+          alert(`Sending email to: ${recipients.join(", ")}`);
+        });
+
+        // Detail buttons
+        const detailButtons = document.querySelectorAll(".detail-btn");
+        detailButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const buttonText = this.textContent;
+            alert(`${buttonText} functionality would open here`);
+          });
+        });
+      });

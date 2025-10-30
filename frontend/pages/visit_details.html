@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,7 +8,7 @@
   </head>
   <body>
     <header>
-      <h1>Visit Details</h1>
+      <h1>Client Visit Management System</h1>
       <button onclick="window.location.href='visits.html'">
         ← Back to Visits
       </button>
@@ -31,6 +31,169 @@
         <button type="button" id="addResourceBtn">Add Resource</button>
       </section>
     </main>
+
+    <script src="../javascript/visit_details.js"></script>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visit Details</title>
+    <link rel="stylesheet" href="../styles/visit_details.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Client Visit Management System</h1>
+      <button onclick="window.location.href='visits.html'">
+        ← Back to Visits
+      </button>
+    </header>
+
+    <div class="main-container">
+      <!-- Left Panel -->
+      <div class="left-panel">
+        <div class="visit-details">
+          <div class="section-title">
+            <h2>INFORMA</h2>
+            <span class="edit-icon">✏️</span>
+          </div>
+          <!-- <div class="detail-item">
+            <div class="detail-label">Visit ID</div>
+            <div class="detail-value">V-2023-001</div>
+          </div> -->
+          <!-- <div class="detail-item">
+            <div class="detail-label">Date</div>
+            <div class="detail-value">October 15, 2023</div>
+          </div> -->
+          <div class="detail-item">
+            <div class="detail-label">Location</div>
+            <div class="detail-value">Bangalore</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Branch</div>
+            <div class="detail-value">Anchor Annex, ITPL</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Visit Dates</div>
+            <div class="detail-value">2025-11-18 → 2025-11-25</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Status</div>
+            <div class="detail-value">Scheduled</div>
+            <!-- Schedule/Active/Completed/Cancelled -->
+          </div>
+        </div>
+
+        <div class="coordinator-details">
+          <div class="section-title">
+            <h3>Coordinator</h3>
+            <span class="edit-icon">✏️</span>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Name</div>
+            <div class="detail-value">Cvkln Prasad</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Employee ID</div>
+            <div class="detail-value">160942</div>
+          </div>
+          <!-- <div class="detail-item">
+            <div class="detail-label">Department</div>
+            <div class="detail-value">Client Relations</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Email</div>
+            <div class="detail-value">s.johnson@company.com</div>
+          </div> -->
+        </div>
+      </div>
+
+      <!-- Right Content -->
+      <div class="right-content">
+        <!-- Client Details Section -->
+        <section class="card">
+          <h3>
+            Client Details
+            <button class="action-button">Add/Edit</button>
+          </h3>
+          <table>
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Michael Chen</td>
+                <td>Chief Technology Officer</td>
+                <td>m.chen@clientcorp.com</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Jennifer Martinez</td>
+                <td>Project Manager</td>
+                <td>j.martinez@clientcorp.com</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Robert Williams</td>
+                <td>Business Analyst</td>
+                <td>r.williams@clientcorp.com</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Excel Buttons -->
+        <div class="button-group">
+          <button class="btn btn-primary">Generate Excel</button>
+          <button class="btn btn-secondary">Download Excel</button>
+        </div>
+
+        <!-- Email Section -->
+        <section class="card">
+          <h3>Select Recipients to Send Mail</h3>
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="recipient1" checked />
+              <label for="recipient1">IS</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="recipient2" checked />
+              <label for="recipient2">Admin</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="recipient3" />
+              <label for="recipient3">BMS</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="recipient4" />
+              <label for="recipient4">Hospitality</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="recipient5" />
+              <label for="recipient5">BlrSecurity</label>
+            </div>
+          </div>
+          <button class="btn btn-secondary">Send Mail</button>
+        </section>
+
+        <!-- Detail Buttons -->
+        <div class="detail-buttons">
+          <button class="detail-btn">Add/Edit Travel Details</button>
+          <button class="detail-btn">Add/Edit Transport Details</button>
+          <button class="detail-btn">Add/Edit Accommodation Details</button>
+          <button class="detail-btn">Add/Edit Billing Details</button>
+        </div>
+      </div>
+    </div>
 
     <script src="../javascript/visit_details.js"></script>
   </body>
